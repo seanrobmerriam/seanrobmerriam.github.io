@@ -1,0 +1,192 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/blocks/Hero.astro";
+import Projects from "@/components/blocks/Projects.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Button from "@/components/Button.astro";
+import { projects } from "@/data/projects";
+import { services, specialties } from "@/data/portfolio";
+
+const github = "https://github.com/seanrobmerriam";
+const focus = [
+  {
+    number: "01 / Design",
+    heading: "Make it clear.",
+    text: "Start with the person using it. Find the essential interaction, simplify the path, and give every detail a purpose.",
+  },
+  {
+    number: "02 / Development",
+    heading: "Build it thoughtfully.",
+    text: "Bring the interface and the systems behind it together. Favor readable code, useful abstractions, and a solid foundation.",
+  },
+  {
+    number: "03 / Exploration",
+    heading: "Keep asking questions.",
+    text: "Try the unfamiliar. From terminal tools to agent workflows, small experiments are where the next useful idea begins.",
+  },
+];
+---
+
+<BaseLayout
+  title="Developer & Designer"
+  description="Sean Merriam — software developer and designer. Selected projects, open-source tools, and experiments across the web and developer tooling."
+  theme="dark"
+>
+  <!-- Introduction -->
+  <Hero
+    id="home"
+    heading="Thoughtful design. Useful software."
+    text="I'm Sean, a software developer and designer. I build websites, developer tools, and experiments that turn complex ideas into something clear and useful."
+    buttonLabel="Explore my work"
+    buttonHref="#work"
+    paddingTop="large"
+    paddingBottom="large"
+  />
+
+  <!-- Selected work -->
+  <Projects
+    id="work"
+    heading="Built with curiosity."
+    text="A selection of open-source tools and experiments. Explore the ideas, read the code, or make something of your own."
+    projects={projects}
+    theme="light"
+    aria-label="Selected projects"
+  />
+
+  <!-- Services -->
+  <Section id="services" aria-labelledby="services-heading">
+    <ContentWrapper>
+      <Eyebrow>Services</Eyebrow>
+      <Heading id="services-heading" tag="h2">An idea worth building?</Heading>
+      <Paragraph variant="large" maxWidth={44}>
+        I can help shape the interface, build the website, or create the tools
+        that make it all work.
+      </Paragraph>
+    </ContentWrapper>
+    <Grid medium={3}>
+      {
+        services.map((service) => (
+          <article>
+            <ContentWrapper>
+              <Heading tag="h3" variant="h4">
+                {service.heading}
+              </Heading>
+              <Paragraph>{service.text}</Paragraph>
+            </ContentWrapper>
+          </article>
+        ))
+      }
+    </Grid>
+    <ButtonWrapper marginTop="0">
+      <Button element="link" href="#contact"
+        >Let's talk about your project</Button
+      >
+    </ButtonWrapper>
+  </Section>
+
+  <!-- Specialties -->
+  <Section id="specialties" theme="light" aria-labelledby="specialties-heading">
+    <ContentWrapper variant="columns">
+      <div>
+        <Eyebrow>Specialties</Eyebrow>
+        <Heading id="specialties-heading" tag="h2" maxWidth={16}>
+          Where I like to go deep.
+        </Heading>
+        <Paragraph variant="large" maxWidth={36}>
+          The technologies and problem spaces that connect my projects.
+        </Paragraph>
+      </div>
+      <Grid slot="column2" medium={2} role="list" aria-label="Specialties">
+        {
+          specialties.map((specialty) => (
+            <ContentWrapper role="listitem">
+              <Heading tag="h3" variant="h5">
+                {specialty.heading}
+              </Heading>
+              <Paragraph>{specialty.text}</Paragraph>
+            </ContentWrapper>
+          ))
+        }
+      </Grid>
+    </ContentWrapper>
+  </Section>
+
+  <!-- About -->
+  <Section id="about" aria-labelledby="about-heading">
+    <ContentWrapper variant="columns">
+      <div>
+        <Eyebrow>Behind the work</Eyebrow>
+        <Heading id="about-heading" tag="h2" maxWidth={16}
+          >A designer's eye. A developer's mindset.</Heading
+        >
+      </div>
+      <div slot="column2">
+        <Paragraph variant="large" maxWidth={42}
+          >I enjoy the space where design meets engineering: making things that
+          feel considered on the surface and make sense underneath.</Paragraph
+        >
+        <Paragraph maxWidth={48}
+          >My projects range from web interfaces to terminal editors and tools
+          for AI agents. The thread that connects them is curiosity about how
+          things work, and how they could work better.</Paragraph
+        >
+        <ButtonWrapper
+          ><Button element="link" href={github} variant="link"
+            >More of what I'm building</Button
+          ></ButtonWrapper
+        >
+      </div>
+    </ContentWrapper>
+  </Section>
+
+  <!-- Approach -->
+  <Section id="approach" theme="light" aria-labelledby="approach-heading">
+    <ContentWrapper>
+      <Eyebrow>How I work</Eyebrow>
+      <Heading id="approach-heading" tag="h2">From idea to interaction.</Heading
+      >
+      <Paragraph variant="large" maxWidth={44}
+        >Good work comes from caring about both the big picture and the small
+        details.</Paragraph
+      >
+    </ContentWrapper>
+    <Grid medium={3}>
+      {
+        focus.map((item) => (
+          <ContentWrapper>
+            <Eyebrow>{item.number}</Eyebrow>
+            <Heading tag="h3" variant="h4">
+              {item.heading}
+            </Heading>
+            <Paragraph>{item.text}</Paragraph>
+          </ContentWrapper>
+        ))
+      }
+    </Grid>
+  </Section>
+
+  <!-- Contact -->
+  <Section id="contact" theme="brand" aria-labelledby="contact-heading">
+    <ContentWrapper centered>
+      <Heading id="contact-heading" tag="h2" variant="h1" maxWidth={16}
+        >Good things start with a conversation.</Heading
+      >
+      <Paragraph variant="large" maxWidth={42}
+        >Have an idea, a question, or a project in mind? Find me on GitHub to
+        explore my work and connect.</Paragraph
+      >
+      <ButtonWrapper>
+        <Button element="link" href={github}>Find me on GitHub</Button>
+        <Button element="link" href="#work" emphasis="secondary"
+          >Back to the work</Button
+        >
+      </ButtonWrapper>
+    </ContentWrapper>
+  </Section>
+</BaseLayout>

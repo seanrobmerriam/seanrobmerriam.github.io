@@ -1,0 +1,110 @@
+---
+import type { ComponentProps, HTMLAttributes } from "astro/types";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Grid from "@/components/wrapper/Grid.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Card from "@/components/item/Card.astro";
+
+type Project = {
+  /** Project title. Supports inline markup. */
+  heading: string;
+  /** Body text. Supports inline markup. */
+  text: string;
+  /** Project destination. Omit to hide the link. */
+  href?: string;
+  /** Button label. Defaults to `View project`. */
+  buttonLabel?: string;
+  /** Image source. */
+  image?: ImageMetadata | string;
+  /** Image alt text. Omit for decorative images. */
+  imageAlt?: string;
+};
+
+type Props = HTMLAttributes<"section"> &
+  Pick<
+    ComponentProps<typeof Section>,
+    "render" | "theme" | "paddingTop" | "paddingBottom"
+  > & {
+    /** Section title. */
+    heading?: string;
+    /** Body text. */
+    text?: string;
+    /** Projects to showcase. Displays the first four. */
+    projects?: readonly Project[];
+  };
+
+const {
+  render = true,
+  heading = "Selected Projects",
+  text,
+  projects = [
+    { heading: "fslite", text: "Text on the left, a visual on the right." },
+    { heading: "Project 2", text: "Text on the left, a visual on the right." },
+    { heading: "Project 3", text: "Text on the left, a visual on the right." },
+    { heading: "Project 4", text: "Text on the left, a visual on the right." },
+  ],
+  theme = "inherit",
+  paddingTop = "medium",
+  paddingBottom = "medium",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const selectedProjects = projects
+  .filter((project) => project.heading?.trim())
+  .slice(0, 4);
+---
+
+{
+  render && selectedProjects.length > 0 && (
+    <Section
+      theme={theme}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      class={className}
+      {...rest}
+    >
+      <ContentWrapper>
+        <Heading tag="h2" variant="h2">
+          {heading}
+        </Heading>
+        <Paragraph variant="large" maxWidth={48}>
+          {text}
+        </Paragraph>
+      </ContentWrapper>
+      <Grid medium={2}>
+        {selectedProjects.map((project) => {
+          const content = {
+            heading: project.heading,
+            headingTag: "h3" as const,
+            text: project.text,
+            buttonLabel: project.href?.trim()
+              ? project.buttonLabel?.trim() || "View project"
+              : undefined,
+            buttonHref: project.href?.trim() || undefined,
+          };
+
+          return project.image ? (
+            <Card
+              {...content}
+              variant="stacked"
+              image={project.image}
+              imageAlt={project.imageAlt}
+            />
+          ) : project.href?.trim() ? (
+            <Card
+              variant="project"
+              heading={project.heading}
+              text={project.text}
+              githubHref={project.href}
+            />
+          ) : (
+            <Card {...content} />
+          );
+        })}
+      </Grid>
+    </Section>
+  )
+}

@@ -1,0 +1,76 @@
+---
+import type { ComponentProps, HTMLAttributes } from "astro/types";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+import Button from "@/components/Button.astro";
+
+type Props = HTMLAttributes<"section"> &
+  Pick<
+    ComponentProps<typeof Section>,
+    "render" | "theme" | "paddingTop" | "paddingBottom"
+  > & {
+    /** Hero title. */
+    heading: string;
+    /** Eyebrow text. */
+    eyebrow?: string;
+    /** Body text. */
+    text?: string;
+    /** Button label. Omit to hide the button. */
+    buttonLabel?: string;
+    /** Button destination. Omit to hide the button. */
+    buttonHref?: string;
+    /** Hero layout. */
+    variant?: "default" | "centered";
+    /** Heading level. */
+    headingTag?: ComponentProps<typeof Heading>["tag"];
+  };
+
+const {
+  render = true,
+  heading,
+  eyebrow,
+  text,
+  buttonLabel,
+  buttonHref,
+  variant = "default",
+  headingTag = "h1",
+  theme = "inherit",
+  paddingTop = "large",
+  paddingBottom = "large",
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+{
+  render && heading?.trim() && (
+    <Section
+      theme={theme}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      class={className}
+      {...rest}
+    >
+      <ContentWrapper centered={variant === "centered"}>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <Heading tag={headingTag} variant="display" maxWidth={18}>
+          {heading}
+        </Heading>
+        <Paragraph variant="large" maxWidth={48}>
+          {text}
+        </Paragraph>
+        {buttonLabel?.trim() && buttonHref?.trim() && (
+          <ButtonWrapper>
+            <Button element="link" href={buttonHref}>
+              {buttonLabel}
+            </Button>
+          </ButtonWrapper>
+        )}
+      </ContentWrapper>
+    </Section>
+  )
+}
