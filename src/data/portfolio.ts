@@ -15,11 +15,15 @@ export const services = [
 
 export const specialties = [
   {
+    heading: "Content Management Systems",
+    text: "Custom content management systems built with reusable components and a focus on content.",
+  },
+  {
     heading: "Astro & TypeScript",
     text: "Content-driven websites, typed interfaces, and reusable component architecture.",
   },
   {
-    heading: "CSS & design systems",
+    heading: "CSS & Design Systems",
     text: "Responsive layouts, typography, design tokens, and consistent UI patterns.",
   },
   {
@@ -27,15 +31,11 @@ export const specialties = [
     text: "Clear boundaries between tools, services, and the interfaces that connect them.",
   },
   {
-    heading: "SQLite & local persistence",
+    heading: "SQLite, Webassembly, and Single Binary Object Storage",
     text: "Durable storage, tool-call journals, and filesystem abstractions.",
   },
   {
-    heading: "MCP & agent tooling",
+    heading: "MCP, Agent Tools, and Sandboxes",
     text: "Tool integrations, proxy layers, and recovery testing for AI agents.",
-  },
-  {
-    heading: "Content Management Systems",
-    text: "Custom content management systems built with reusable components and a focus on content.",
   },
 ];

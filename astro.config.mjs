@@ -7,8 +7,7 @@ import { mdxPreviewRuntime } from "./build/mdx-preview-runtime.mjs";
 import markdoc from "@astrojs/markdoc";
 
 export default defineConfig({
-  site: 'https://seanrobmerriam.github.io',
-  base: '/seanrobmerriam.github.io',
+  site: SITE_URL,
   integrations: [
     markdoc(),
     sitemap({
