@@ -48,14 +48,16 @@ const focus = [
   <!-- Introduction -->
   <Hero
     id="home"
-    heading="Thoughtful design. Useful software."
-    text="I'm Sean, a software developer and designer. I build websites, developer tools, and experiments that turn complex ideas into something clear and useful."
-    buttonLabel="Explore my work"
+    variant="sticky-content"
+    heading="Your <strong>content</strong>. Your <strong>workflow</strong>. Built with <strong>Astro</strong>."
+    text="I build content management systems around the way you publish. From WordPress migrations to Markdown, MDX, and CMS integrations, I create websites that make your content easier to manage."
+    buttonLabel="Explore Solutions"
     buttonHref="#work"
     secondaryButtonLabel="Contact"
     secondaryButtonHref="#contact"
     paddingTop="large"
     paddingBottom="large"
+    class="heading-accent"
   />
 
   <!-- WordPress migrations -->
@@ -64,7 +66,7 @@ const focus = [
     theme="light"
     aria-labelledby="wordpress-migrations-heading"
   >
-    <ContentWrapper variant="columns">
+    <ContentWrapper variant="sticky-content">
       <div>
         <Eyebrow>WordPress migrations</Eyebrow>
         <Heading id="wordpress-migrations-heading" tag="h2" maxWidth={18}>
@@ -108,10 +110,10 @@ const focus = [
   <Section id="markdown" theme="dark" aria-labelledby="markdown-heading">
     <ContentWrapper>
       <Eyebrow>Markdown Based Content</Eyebrow>
-      <Heading id="markdown-heading" tag="h2"
-        >From plain text to a post.</Heading
+      <Heading id="markdown-heading" tag="h2" class="heading-accent"
+        >From <strong>plain </strong>text to a <strong>post.</strong></Heading
       >
-      <Paragraph variant="large" maxWidth={44}>
+      <Paragraph variant="large" maxWidth={44} class="padding-bottom-4">
         Try a heading, a list, or a little emphasis. The preview updates as you
         type.
       </Paragraph>
@@ -126,33 +128,33 @@ const focus = [
     aria-labelledby="journal-heading"
     render={posts.length > 0}
   >
-    <ContentWrapper>
+    <ContentWrapper variant="sticky-content">
       <Eyebrow>Built with Markdoc</Eyebrow>
       <Heading id="journal-heading" tag="h2">Notes from the work.</Heading>
       <Paragraph variant="large" maxWidth={44}>
         A few thoughts on content, design, and building websites that are easier
         to live with. Written in Markdoc, rendered with Astro.
       </Paragraph>
+      <Grid slot="column2">
+        {
+          posts.map((post) => (
+            <Card
+              eyebrow={post.data.category}
+              heading={post.data.title}
+              headingTag="h3"
+              text={post.data.description}
+              buttonLabel="Read article"
+              buttonHref={`/blog/${post.id}/`}
+            />
+          ))
+        }
+      </Grid>
     </ContentWrapper>
-    <Grid medium={2}>
-      {
-        posts.map((post) => (
-          <Card
-            eyebrow={post.data.category}
-            heading={post.data.title}
-            headingTag="h3"
-            text={post.data.description}
-            buttonLabel="Read article"
-            buttonHref={`/blog/${post.id}/`}
-          />
-        ))
-      }
-    </Grid>
   </Section>
 
   <!-- Specialties -->
   <Section id="specialties" theme="light" aria-labelledby="specialties-heading">
-    <ContentWrapper variant="columns">
+    <ContentWrapper variant="sticky-content">
       <div>
         <Eyebrow>Specialties</Eyebrow>
         <Heading id="specialties-heading" tag="h2" maxWidth={16}>
@@ -179,7 +181,7 @@ const focus = [
 
   <!-- About -->
   <Section id="about" aria-labelledby="about-heading">
-    <ContentWrapper variant="columns" class="padding-top-small">
+    <ContentWrapper variant="sticky-content" class="padding-top-small">
       <div>
         <Eyebrow>Behind the work</Eyebrow>
         <Heading id="about-heading-primary" tag="h2" maxWidth={16}
@@ -220,10 +222,10 @@ const focus = [
 
   <!-- Services -->
   <Section id="services" aria-labelledby="services-heading">
-    <ContentWrapper variant="columns">
+    <ContentWrapper variant="sticky-content">
       <div>
         <Eyebrow>Services</Eyebrow>
-        <Heading id="services-heading" tag="h2">An idea worth building?</Heading
+        <Heading id="services-heading" tag="h2" class="heading-accent">An <strong>idea</strong> worth building?</Heading
         >
         <Paragraph variant="large" maxWidth={44}>
           I can help shape the interface, build the website, or create the tools
@@ -252,7 +254,7 @@ const focus = [
 
   <!-- Approach -->
   <Section id="approach" theme="light" aria-labelledby="approach-heading">
-    <ContentWrapper>
+    <ContentWrapper variant="sticky-content">
       <Eyebrow>How I work</Eyebrow>
       <Heading id="approach-heading" tag="h2">From idea to interaction.</Heading
       >
@@ -260,38 +262,44 @@ const focus = [
         >Good work comes from caring about both the big picture and the small
         details.</Paragraph
       >
+      <Grid slot="column2">
+        {
+          focus.map((item) => (
+            <ContentWrapper>
+              <Eyebrow>{item.number}</Eyebrow>
+              <Heading tag="h3" variant="h4">
+                {item.heading}
+              </Heading>
+              <Paragraph>{item.text}</Paragraph>
+            </ContentWrapper>
+          ))
+        }
+      </Grid>
     </ContentWrapper>
-    <Grid medium={3}>
-      {
-        focus.map((item) => (
-          <ContentWrapper>
-            <Eyebrow>{item.number}</Eyebrow>
-            <Heading tag="h3" variant="h4">
-              {item.heading}
-            </Heading>
-            <Paragraph>{item.text}</Paragraph>
-          </ContentWrapper>
-        ))
-      }
-    </Grid>
   </Section>
 
   <!-- Contact -->
   <Section id="contact" theme="brand" aria-labelledby="contact-heading">
-    <ContentWrapper centered>
-      <Heading id="contact-heading" tag="h2" variant="h1" maxWidth={16} class="brand-500"
-        >Good things start with a conversation.</Heading
+    <ContentWrapper variant="sticky-content">
+      <Heading
+        id="contact-heading"
+        tag="h2"
+        variant="h1"
+        maxWidth={16}
+        class="brand-500">Good things start with a conversation.</Heading
       >
-      <Paragraph variant="large" maxWidth={42}
-        >Have an idea, a question, or a project in mind? Find me on GitHub to
-        explore my work and connect.</Paragraph
-      >
-      <ButtonWrapper>
-        <Button element="link" href={github}>Find me on GitHub</Button>
-        <Button element="link" href="#work" emphasis="secondary"
-          >Back to the work</Button
+      <div slot="column2">
+        <Paragraph variant="large" maxWidth={42}
+          >Have an idea, a question, or a project in mind? Find me on GitHub to
+          explore my work and connect.</Paragraph
         >
-      </ButtonWrapper>
+        <ButtonWrapper>
+          <Button element="link" href={github}>Find me on GitHub</Button>
+          <Button element="link" href="#work" emphasis="secondary"
+            >Back to the work</Button
+          >
+        </ButtonWrapper>
+      </div>
     </ContentWrapper>
   </Section>
 </BaseLayout>

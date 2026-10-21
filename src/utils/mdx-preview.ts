@@ -52,5 +52,9 @@ export function previewDocument(styles: string): string {
     ${styles}
     <style>html,body{margin:0;padding:0;background:var(--background);color:var(--text)}body{overflow-wrap:anywhere}#preview{display:flow-root;min-width:0;margin:0}pre{overflow-x:auto}img,video,svg{max-width:100%;height:auto}</style>
     </head><body><div class="text rich-text" id="preview"></div>
+    <script>
+      addEventListener('error', event => parent.postMessage({type:'mdx-preview', error:event.message || 'The preview script failed to start.'}, '*'));
+      addEventListener('unhandledrejection', event => parent.postMessage({type:'mdx-preview', error:String(event.reason?.message || event.reason)}, '*'));
+    </script>
     <script>${runtimeSource.replace(/<\/script/gi, "<\\/script")}</script></body></html>`;
 }

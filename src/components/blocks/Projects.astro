@@ -66,45 +66,45 @@ const selectedProjects = projects
       class={className}
       {...rest}
     >
-      <ContentWrapper>
+      <ContentWrapper variant="sticky-content">
         <Heading tag="h2" variant="h2">
           {heading}
         </Heading>
         <Paragraph variant="large" maxWidth={48}>
           {text}
         </Paragraph>
-      </ContentWrapper>
-      <Grid medium={2}>
-        {selectedProjects.map((project) => {
-          const content = {
-            heading: project.heading,
-            headingTag: "h3" as const,
-            text: project.text,
-            buttonLabel: project.href?.trim()
-              ? project.buttonLabel?.trim() || "View project"
-              : undefined,
-            buttonHref: project.href?.trim() || undefined,
-          };
+        <Grid slot="column2">
+          {selectedProjects.map((project) => {
+            const content = {
+              heading: project.heading,
+              headingTag: "h3" as const,
+              text: project.text,
+              buttonLabel: project.href?.trim()
+                ? project.buttonLabel?.trim() || "View project"
+                : undefined,
+              buttonHref: project.href?.trim() || undefined,
+            };
 
-          return project.image ? (
-            <Card
-              {...content}
-              variant="stacked"
-              image={project.image}
-              imageAlt={project.imageAlt}
-            />
-          ) : project.href?.trim() ? (
-            <Card
-              variant="project"
-              heading={project.heading}
-              text={project.text}
-              githubHref={project.href}
-            />
-          ) : (
-            <Card {...content} />
-          );
-        })}
-      </Grid>
+            return project.image ? (
+              <Card
+                {...content}
+                variant="stacked"
+                image={project.image}
+                imageAlt={project.imageAlt}
+              />
+            ) : project.href?.trim() ? (
+              <Card
+                variant="project"
+                heading={project.heading}
+                text={project.text}
+                githubHref={project.href}
+              />
+            ) : (
+              <Card {...content} />
+            );
+          })}
+        </Grid>
+      </ContentWrapper>
     </Section>
   )
 }

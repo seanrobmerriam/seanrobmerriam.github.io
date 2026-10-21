@@ -13,11 +13,11 @@ type Props = HTMLAttributes<"section"> &
     ComponentProps<typeof Section>,
     "render" | "theme" | "paddingTop" | "paddingBottom"
   > & {
-    /** Hero title. */
+    /** Hero title. Supports inline markup. */
     heading: string;
     /** Eyebrow text. */
     eyebrow?: string;
-    /** Body text. */
+    /** Body text. Supports inline markup. */
     text?: string;
     /** Button label. Omit to hide the button. */
     buttonLabel?: string;
@@ -28,7 +28,7 @@ type Props = HTMLAttributes<"section"> &
     /** Secondary button destination. Omit to hide the button. */
     secondaryButtonHref?: string;
     /** Hero layout. */
-    variant?: "default" | "centered";
+    variant?: "default" | "centered" | "sticky-content";
     /** Heading level. */
     headingTag?: ComponentProps<typeof Heading>["tag"];
   };
@@ -51,6 +51,11 @@ const {
   ...rest
 } = Astro.props;
 
+const layoutProps =
+  variant === "sticky-content"
+    ? { variant: "sticky-content" as const }
+    : { centered: variant === "centered" };
+
 const hasPrimaryButton = !!(buttonLabel?.trim() && buttonHref?.trim());
 const hasSecondaryButton = !!(
   secondaryButtonLabel?.trim() && secondaryButtonHref?.trim()
@@ -66,32 +71,37 @@ const hasSecondaryButton = !!(
       class={className}
       {...rest}
     >
-      <ContentWrapper centered={variant === "centered"}>
+      <ContentWrapper
+        {...layoutProps}
+        class={variant !== "sticky-content" ? "gap-0" : undefined}
+      >
         <Eyebrow>{eyebrow}</Eyebrow>
-        <Heading tag={headingTag} variant="display" maxWidth={18}>
-          {heading}
+        <Heading tag={headingTag} variant="h1" maxWidth={20}>
+          <Fragment set:html={heading} />
         </Heading>
-        <Paragraph variant="large" maxWidth={48}>
-          {text}
-        </Paragraph>
-        {(hasPrimaryButton || hasSecondaryButton) && (
-          <ButtonWrapper>
-            {hasPrimaryButton && (
-              <Button element="link" href={buttonHref}>
-                {buttonLabel}
-              </Button>
-            )}
-            {hasSecondaryButton && (
-              <Button
-                element="link"
-                href={secondaryButtonHref}
-                emphasis="secondary"
-              >
-                {secondaryButtonLabel}
-              </Button>
-            )}
-          </ButtonWrapper>
-        )}
+        <div slot="column2">
+          <Paragraph variant="large" maxWidth={48}>
+            <Fragment set:html={text} />
+          </Paragraph>
+          {(hasPrimaryButton || hasSecondaryButton) && (
+            <ButtonWrapper>
+              {hasPrimaryButton && (
+                <Button element="link" href={buttonHref}>
+                  {buttonLabel}
+                </Button>
+              )}
+              {hasSecondaryButton && (
+                <Button
+                  element="link"
+                  href={secondaryButtonHref}
+                  emphasis="secondary"
+                >
+                  {secondaryButtonLabel}
+                </Button>
+              )}
+            </ButtonWrapper>
+          )}
+        </div>
       </ContentWrapper>
     </Section>
   )

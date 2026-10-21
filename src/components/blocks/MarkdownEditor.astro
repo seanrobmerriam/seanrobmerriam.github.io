@@ -41,10 +41,10 @@ export function Counter() {
 - Simple markdown files produce rich rendered content.
 - Zero code solution for non-developer roles
 - Embed any Javascript into your content.
-#### Normal Text Example:
+#### Normal Text:
 > Hello, I am normal text
 
-#### Imported Component Example:
+#### Imported Component:
 
 ><Counter />
 `;
@@ -53,7 +53,7 @@ export function Counter() {
 {
   render && (
     <div class="markdown-editor_wrap" data-markdown-editor>
-      <ContentWrapper variant="columns">
+      <ContentWrapper variant="sticky-content">
         <div class="markdown-editor_input">
           <Eyebrow variant="tag">MDX</Eyebrow>
           <Textarea
@@ -83,8 +83,12 @@ export function Counter() {
               sandbox="allow-scripts"
               referrerpolicy="no-referrer"
               data-mdx-frame
+              hidden
             />
           </RichText>
+          <p role="status" data-mdx-status>
+            Loading interactive preview…
+          </p>
           <p
             class="markdown-editor_error"
             role="status"
@@ -98,18 +102,29 @@ export function Counter() {
 }
 
 <script>
-  import { compilePreview, previewDocument } from "@/utils/mdx-preview";
   import previewFont from "@/assets/fonts/inter-regular.woff2?inline";
 
   document
     .querySelectorAll<HTMLElement>("[data-markdown-editor]")
-    .forEach((editor) => {
+    .forEach(async (editor) => {
       const input = editor.querySelector<HTMLTextAreaElement>(
         "[data-markdown-input]",
       );
       const frame = editor.querySelector<HTMLIFrameElement>("[data-mdx-frame]");
       const error = editor.querySelector<HTMLElement>("[data-mdx-error]");
-      if (!input || !frame || !error) return;
+      const status = editor.querySelector<HTMLElement>("[data-mdx-status]");
+      if (!input || !frame || !error || !status) return;
+
+      let mdx: typeof import("@/utils/mdx-preview");
+      try {
+        mdx = await import("@/utils/mdx-preview");
+      } catch (cause) {
+        status.hidden = true;
+        error.hidden = false;
+        error.textContent = `Unable to load the MDX editor: ${cause instanceof Error ? cause.message : String(cause)}. Try reloading the page or updating Safari.`;
+        return;
+      }
+      const { compilePreview, previewDocument } = mdx;
 
       const computed = getComputedStyle(editor);
       const variables = Array.from(computed)
@@ -138,7 +153,14 @@ export function Counter() {
       const showError = (message: string) => {
         error.textContent = message;
         error.hidden = !message;
+        if (message) status.hidden = true;
       };
+      const startupTimeout = setTimeout(() => {
+        if (!ready)
+          showError(
+            "The MDX preview did not start. Try reloading the page. Your browser may be blocking the preview script.",
+          );
+      }, 10000);
       const update = async () => {
         const current = ++revision;
         try {
@@ -162,8 +184,13 @@ export function Counter() {
           return;
         if (event.data.ready) {
           ready = true;
+          clearTimeout(startupTimeout);
           if (code)
             frame.contentWindow?.postMessage({ type: "render-mdx", code }, "*");
+        }
+        if (event.data.rendered) {
+          frame.hidden = false;
+          status.hidden = true;
         }
         if (typeof event.data.error === "string") showError(event.data.error);
         if (
@@ -208,6 +235,10 @@ export function Counter() {
       width: 100%;
       min-height: 20rem;
       border: 0;
+      background-color: var(--background);
+      &[hidden] {
+        display: none;
+      }
     }
 
     .markdown-editor_error {
