@@ -7,6 +7,8 @@ interface Props extends Omit<HTMLAttributes<"textarea">, "rows"> {
   render?: boolean;
   /** Field label. */
   label?: string;
+  /** Visually hide the field label while keeping it accessible. */
+  hideLabel?: boolean;
   /** Initial value. */
   value?: string;
   /** Submitted name. Defaults to the label slug. */
@@ -23,6 +25,8 @@ interface Props extends Omit<HTMLAttributes<"textarea">, "rows"> {
    * @min 1
    * @int */
   maxLines?: number;
+  /** Hide the scrollbar while preserving scrolling. */
+  hideScrollbar?: boolean;
   /** Require the field and mark its label. */
   required?: boolean;
 }
@@ -30,11 +34,13 @@ interface Props extends Omit<HTMLAttributes<"textarea">, "rows"> {
 const {
   render = true,
   label,
+  hideLabel = false,
   value,
   name,
   placeholder,
   minLines = 3,
   maxLines = 12,
+  hideScrollbar = false,
   required = false,
   class: className,
   ...rest
@@ -47,7 +53,9 @@ const {
       class:list={["field", "form-textarea", className]}
       style={`--_min-lines: ${minLines}; --_max-lines: ${maxLines};`}
     >
-      <span class="field-label text-style-main">
+      <span
+        class:list={[hideLabel ? "sr-only" : "field-label text-style-main"]}
+      >
         <span>{label}</span>
         {required && (
           <span class="field-star" aria-hidden="true">
@@ -56,15 +64,17 @@ const {
         )}
       </span>
       <textarea
-        class="field-control form-textarea_field text-style-main"
+        class:list={[
+          "field-control form-textarea_field text-style-main",
+          hideScrollbar && "hide-scrollbar",
+        ]}
         name={name ?? slug(label)}
         placeholder={placeholder}
         required={required || undefined}
         rows={minLines}
+        set:text={value}
         {...rest}
-      >
-        {value}
-      </textarea>
+      />
     </label>
   )
 }
@@ -82,6 +92,12 @@ const {
           var(--border-width) * 2
       );
       resize: vertical;
+      &.hide-scrollbar {
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
     }
   }
 </style>

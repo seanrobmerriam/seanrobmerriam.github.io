@@ -23,6 +23,10 @@ type Props = HTMLAttributes<"section"> &
     buttonLabel?: string;
     /** Button destination. Omit to hide the button. */
     buttonHref?: string;
+    /** Secondary button label. Omit to hide the button. */
+    secondaryButtonLabel?: string;
+    /** Secondary button destination. Omit to hide the button. */
+    secondaryButtonHref?: string;
     /** Hero layout. */
     variant?: "default" | "centered";
     /** Heading level. */
@@ -36,6 +40,8 @@ const {
   text,
   buttonLabel,
   buttonHref,
+  secondaryButtonLabel,
+  secondaryButtonHref,
   variant = "default",
   headingTag = "h1",
   theme = "inherit",
@@ -44,6 +50,11 @@ const {
   class: className,
   ...rest
 } = Astro.props;
+
+const hasPrimaryButton = !!(buttonLabel?.trim() && buttonHref?.trim());
+const hasSecondaryButton = !!(
+  secondaryButtonLabel?.trim() && secondaryButtonHref?.trim()
+);
 ---
 
 {
@@ -63,11 +74,22 @@ const {
         <Paragraph variant="large" maxWidth={48}>
           {text}
         </Paragraph>
-        {buttonLabel?.trim() && buttonHref?.trim() && (
+        {(hasPrimaryButton || hasSecondaryButton) && (
           <ButtonWrapper>
-            <Button element="link" href={buttonHref}>
-              {buttonLabel}
-            </Button>
+            {hasPrimaryButton && (
+              <Button element="link" href={buttonHref}>
+                {buttonLabel}
+              </Button>
+            )}
+            {hasSecondaryButton && (
+              <Button
+                element="link"
+                href={secondaryButtonHref}
+                emphasis="secondary"
+              >
+                {secondaryButtonLabel}
+              </Button>
+            )}
           </ButtonWrapper>
         )}
       </ContentWrapper>

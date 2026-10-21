@@ -10,8 +10,15 @@ import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
 import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Button from "@/components/Button.astro";
+import MarkdownEditor from "@/components/blocks/MarkdownEditor.astro";
 import { projects } from "@/data/projects";
 import { services, specialties } from "@/data/portfolio";
+import { getCollection } from "astro:content";
+import Card from "@/components/item/Card.astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 2);
 
 const github = "https://github.com/seanrobmerriam";
 const focus = [
@@ -45,49 +52,102 @@ const focus = [
     text="I'm Sean, a software developer and designer. I build websites, developer tools, and experiments that turn complex ideas into something clear and useful."
     buttonLabel="Explore my work"
     buttonHref="#work"
+    secondaryButtonLabel="Contact"
+    secondaryButtonHref="#contact"
     paddingTop="large"
     paddingBottom="large"
   />
 
-  <!-- Selected work -->
-  <Projects
-    id="work"
-    heading="Built with curiosity."
-    text="A selection of open-source tools and experiments. Explore the ideas, read the code, or make something of your own."
-    projects={projects}
+  <!-- WordPress migrations -->
+  <Section
+    id="wordpress-migrations"
     theme="light"
-    aria-label="Selected projects"
-  />
+    aria-labelledby="wordpress-migrations-heading"
+  >
+    <ContentWrapper variant="columns">
+      <div>
+        <Eyebrow>WordPress migrations</Eyebrow>
+        <Heading id="wordpress-migrations-heading" tag="h2" maxWidth={18}>
+          A fresh start for your WordPress site.
+        </Heading>
+        <Paragraph variant="large" maxWidth={40}>
+          Bring your content into a focused Astro website, with a simpler
+          foundation and an editing workflow that fits how you work.
+        </Paragraph>
+        <ButtonWrapper>
+          <Button element="link" href="#contact"
+            >Let's plan your migration</Button
+          >
+        </ButtonWrapper>
+      </div>
+      <div slot="column2">
+        <Heading tag="h3" variant="h5">Start with what matters.</Heading>
+        <Paragraph>
+          Review your pages, posts, media, and plugin features to decide what to
+          move, what to simplify, and what needs a new home.
+        </Paragraph>
+        <Heading tag="h3" variant="h5"
+          >Give your content a clear structure.</Heading
+        >
+        <Paragraph>
+          Move posts and pages into Markdown or a suitable CMS, and rebuild
+          layouts with reusable components. Keep the writing separate from the
+          presentation.
+        </Paragraph>
+        <Heading tag="h3" variant="h5">Make the move with care.</Heading>
+        <Paragraph>
+          Map existing URLs, plan redirects, and check metadata, images, links,
+          and forms before launch. A migration should account for the details
+          people already rely on.
+        </Paragraph>
+      </div>
+    </ContentWrapper>
+  </Section>
 
-  <!-- Services -->
-  <Section id="services" aria-labelledby="services-heading">
+  <!-- Markdown playground -->
+  <Section id="markdown" theme="dark" aria-labelledby="markdown-heading">
     <ContentWrapper>
-      <Eyebrow>Services</Eyebrow>
-      <Heading id="services-heading" tag="h2">An idea worth building?</Heading>
+      <Eyebrow>Markdown Based Content</Eyebrow>
+      <Heading id="markdown-heading" tag="h2"
+        >From plain text to a post.</Heading
+      >
       <Paragraph variant="large" maxWidth={44}>
-        I can help shape the interface, build the website, or create the tools
-        that make it all work.
+        Try a heading, a list, or a little emphasis. The preview updates as you
+        type.
       </Paragraph>
     </ContentWrapper>
-    <Grid medium={3}>
+    <MarkdownEditor />
+  </Section>
+
+  <!-- Markdoc journal -->
+  <Section
+    id="journal"
+    theme="light"
+    aria-labelledby="journal-heading"
+    render={posts.length > 0}
+  >
+    <ContentWrapper>
+      <Eyebrow>Built with Markdoc</Eyebrow>
+      <Heading id="journal-heading" tag="h2">Notes from the work.</Heading>
+      <Paragraph variant="large" maxWidth={44}>
+        A few thoughts on content, design, and building websites that are easier
+        to live with. Written in Markdoc, rendered with Astro.
+      </Paragraph>
+    </ContentWrapper>
+    <Grid medium={2}>
       {
-        services.map((service) => (
-          <article>
-            <ContentWrapper>
-              <Heading tag="h3" variant="h4">
-                {service.heading}
-              </Heading>
-              <Paragraph>{service.text}</Paragraph>
-            </ContentWrapper>
-          </article>
+        posts.map((post) => (
+          <Card
+            eyebrow={post.data.category}
+            heading={post.data.title}
+            headingTag="h3"
+            text={post.data.description}
+            buttonLabel="Read article"
+            buttonHref={`/blog/${post.id}/`}
+          />
         ))
       }
     </Grid>
-    <ButtonWrapper marginTop="0">
-      <Button element="link" href="#contact"
-        >Let's talk about your project</Button
-      >
-    </ButtonWrapper>
   </Section>
 
   <!-- Specialties -->
@@ -119,11 +179,14 @@ const focus = [
 
   <!-- About -->
   <Section id="about" aria-labelledby="about-heading">
-    <ContentWrapper variant="columns">
+    <ContentWrapper variant="columns" class="padding-top-small">
       <div>
         <Eyebrow>Behind the work</Eyebrow>
-        <Heading id="about-heading" tag="h2" maxWidth={16}
-          >A designer's eye. A developer's mindset.</Heading
+        <Heading id="about-heading-primary" tag="h2" maxWidth={16}
+          >A designer's eye —</Heading
+        >
+        <Heading id="about-heading-secondary" tag="h3"
+          >with a developers mindset.</Heading
         >
       </div>
       <div slot="column2">
@@ -141,6 +204,48 @@ const focus = [
             >More of what I'm building</Button
           ></ButtonWrapper
         >
+      </div>
+    </ContentWrapper>
+  </Section>
+
+  <!-- Selected work -->
+  <Projects
+    id="work"
+    heading="Built with curiosity."
+    text="A selection of open-source tools and experiments. Explore the ideas, read the code, or make something of your own."
+    projects={projects}
+    theme="light"
+    aria-label="Selected projects"
+  />
+
+  <!-- Services -->
+  <Section id="services" aria-labelledby="services-heading">
+    <ContentWrapper variant="columns">
+      <div>
+        <Eyebrow>Services</Eyebrow>
+        <Heading id="services-heading" tag="h2">An idea worth building?</Heading
+        >
+        <Paragraph variant="large" maxWidth={44}>
+          I can help shape the interface, build the website, or create the tools
+          that make it all work.
+        </Paragraph>
+        <ButtonWrapper>
+          <Button element="link" href="#contact"
+            >Let's talk about your project</Button
+          >
+        </ButtonWrapper>
+      </div>
+      <div slot="column2">
+        {
+          services.map((service) => (
+            <article>
+              <Heading tag="h3" variant="h5">
+                {service.heading}
+              </Heading>
+              <Paragraph>{service.text}</Paragraph>
+            </article>
+          ))
+        }
       </div>
     </ContentWrapper>
   </Section>
@@ -174,7 +279,7 @@ const focus = [
   <!-- Contact -->
   <Section id="contact" theme="brand" aria-labelledby="contact-heading">
     <ContentWrapper centered>
-      <Heading id="contact-heading" tag="h2" variant="h1" maxWidth={16}
+      <Heading id="contact-heading" tag="h2" variant="h1" maxWidth={16} class="brand-500"
         >Good things start with a conversation.</Heading
       >
       <Paragraph variant="large" maxWidth={42}

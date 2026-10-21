@@ -1,15 +1,15 @@
 export const services = [
   {
-    heading: "Web & interface design",
+    heading: "Web & Interface Design",
     text: "Clear layouts, considered typography, and intuitive interactions. From a landing page to a product interface, a design that gives your content room to work.",
   },
   {
-    heading: "Frontend development",
-    text: "Responsive websites and reusable components built with Astro, TypeScript, and CSS. Careful implementation with attention to accessibility and performance.",
+    heading: "Wordpress Migrations",
+    text: "Responsive websites with reusable components—all built with Astro, TypeScript, and CSS. Careful implementation with attention to accessibility, performance, and your existing workflows and schema.",
   },
   {
-    heading: "Developer tools & integrations",
-    text: "Custom tools that connect systems and simplify workflows. Filesystem interfaces, local data stores, and MCP integrations shaped around the problem at hand.",
+    heading: "Agent Driven Tools",
+    text: "Custom tools that connect systems and agents. Filesystem interfaces, local data stores, and MCP integrations shaped around the problem at hand.",
   },
 ];
 
@@ -23,8 +23,8 @@ export const specialties = [
     text: "Responsive layouts, typography, design tokens, and consistent UI patterns.",
   },
   {
-    heading: "Fonts & SVG icons",
-    text: "Self-hosted assets, filesystem discovery, and simpler asset workflows.",
+    heading: "Rust & APIs",
+    text: "Clear boundaries between tools, services, and the interfaces that connect them.",
   },
   {
     heading: "SQLite & local persistence",
@@ -35,7 +35,7 @@ export const specialties = [
     text: "Tool integrations, proxy layers, and recovery testing for AI agents.",
   },
   {
-    heading: "APIs & integrations",
-    text: "Clear boundaries between tools, services, and the interfaces that connect them.",
+    heading: "Content Management Systems",
+    text: "Custom content management systems built with reusable components and a focus on content.",
   },
 ];

@@ -1,0 +1,78 @@
+---
+title: Content that outlives the layout
+description: Why separating your writing from your presentation makes a website easier to maintain and change.
+pubDate: 2026-10-21
+category: Content & design
+author: Sean Merriam
+---
+
+A website's layout will change. The useful ideas in its articles should be able to come along for the ride.
+
+That sounds straightforward until a redesign reveals how much of the content depends on the current presentation. An introduction lives inside a decorative banner. A warning is distinguished only by its background color. A paragraph refers to “the panel on the right,” even though that panel moves below it on a phone.
+
+Separating content from layout is about making those relationships explicit. The writing describes the subject. A small content model describes what each piece means. Components decide how those pieces appear.
+
+### Home
+
+A plain text file can hold both the article and the metadata around it: a title, a description, a publication date, and a category. The layout can then decide how to present those pieces.
+
+- Write the article once.
+- Use its title and description in a preview card.
+- Render the full content on a reading page.
+- Update the design without rewriting the post.
+
+Consider the description beneath a post title. If it exists only as the first paragraph of the article, a listing page has to extract it or maintain a second version. Giving the description its own field makes its purpose clear. The article and its preview can share the same source without depending on each other's markup.
+
+The same reasoning applies to an author name or publication date. Store the underlying information once, then let each context decide whether to show a compact date, a full byline, or no metadata at all.
+
+### Model
+
+A useful field name explains the content rather than its current visual treatment. A field called `summary` can survive a redesign. A field called `grayBoxText` carries an assumption about how that summary will look.
+
+For an article, a small starting model might include:
+
+- **Title:** the name readers use to identify the piece.
+- **Description:** a short explanation of what they will learn.
+- **Publication date:** a stable date that can be formatted for display.
+- **Category:** a consistent way to group related writing.
+- **Body:** the article itself, with headings, paragraphs, and other meaningful structure.
+
+There is no need to create a field for every sentence. Most writing belongs in the body. Separate a piece when it has an independent role, needs validation, or appears somewhere else on the site.
+
+### Structure
+
+Markdoc starts with familiar Markdown and adds explicit tags and variables. That gives authors a way to describe structured content without turning every article into a JavaScript program.
+
+A heading expresses a section boundary. A list expresses a set of related items. A blockquote identifies quoted or highlighted material. Those distinctions are useful even before a stylesheet gives them a particular appearance.
+
+> The content should explain the idea. The components should handle how it looks.
+
+For this post, the category comes directly from its frontmatter: **{% $frontmatter.category %}**. The value has a home in the content file, while the page controls its presentation.
+
+More specialized content may deserve a dedicated tag: a warning with a title, an example with a caption, or a comparison with clearly identified options. Introduce that structure when it captures something meaningful. A tag that merely requests a color or a margin can bring the same layout dependency back under a different name.
+
+### Reuse
+
+Keeping content in one place does not mean every presentation should be identical. A homepage card needs a title, a short description, and a destination. A reading page needs the complete argument and enough context to make sense on its own.
+
+Use shared fields for the facts those contexts have in common. Avoid squeezing the entire article into the preview or expecting a truncated paragraph to function as a useful summary.
+
+Some content should remain local. A paragraph explaining a particular example may never need to appear elsewhere. Extracting it into a reusable object would make editing more complicated without improving the reader's experience.
+
+A helpful question is: if this information changes, would someone need to update it in more than one place? If the answer is yes, a shared field or reference may help. If the answer is no, ordinary prose may be the better home.
+
+### Workflow
+
+The right setup is one that the people maintaining the site can use comfortably. Start with a small content model, give each field a clear purpose, and add complexity only when the writing calls for it.
+
+Validation can catch a missing title or an invalid date, but the error needs to help the author act. A preview matters just as much: people should be able to see how a long title wraps, where an image appears, and whether a heading actually improves the article.
+
+Write down the small decisions that are easy to forget. Explain where images go, what belongs in a description, and how categories are chosen. A short example file is often more useful than a large collection of abstract rules.
+
+### Redesign
+
+A practical way to evaluate the separation is to imagine replacing the current layout. Could the article still be read in a simple document? Would its headings make sense? Could the preview be rebuilt from the existing fields?
+
+If the answers are mostly yes, the content has a reasonable degree of independence. The next design can change the typography, spacing, and component arrangement without forcing a rewrite of the underlying ideas.
+
+That is the useful payoff: a site whose appearance can evolve while its writing remains understandable, editable, and worth keeping.

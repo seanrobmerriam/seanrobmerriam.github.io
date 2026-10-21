@@ -20,6 +20,8 @@ interface Props extends HTMLAttributes<"div"> {
   render?: boolean;
   /** Type style. */
   variant?: RichTextStyle;
+  /** Body text wrapping. */
+  textWrap?: "wrap" | "pretty" | "balance";
   /**
    * Maximum line length in characters.
    *
@@ -32,6 +34,7 @@ interface Props extends HTMLAttributes<"div"> {
 const {
   render = true,
   variant = "inherit",
+  textWrap,
   maxWidth,
   class: className,
   ...rest
@@ -49,7 +52,14 @@ const content = await slotContent(Astro.slots);
         variant !== "inherit" && `text-style-${variant}`,
         className,
       ]}
-      style={maxWidth ? `--_mw: ${maxWidth}ch;` : undefined}
+      style={
+        [
+          maxWidth && `--_mw: ${maxWidth}ch;`,
+          textWrap && `--_body-text-wrap: ${textWrap};`,
+        ]
+          .filter(Boolean)
+          .join(" ") || undefined
+      }
       {...rest}
     >
       <Fragment set:html={content} />
@@ -60,6 +70,9 @@ const content = await slotContent(Astro.slots);
 <style is:global>
   @layer components {
     .rich-text {
+      & p {
+        text-wrap: var(--_body-text-wrap, pretty);
+      }
       & :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, pre, table) {
         margin-top: var(--_margin-top);
         margin-bottom: var(--_margin-bottom);

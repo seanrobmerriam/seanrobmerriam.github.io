@@ -1,0 +1,91 @@
+---
+title: Plan the migration before the redesign
+description: A practical starting point for moving a WordPress website while keeping the content and connections people rely on.
+pubDate: 2026-10-20
+category: WordPress migrations
+author: Sean Merriam
+---
+
+Moving a WordPress website is more than copying the text into a new layout. The existing site has URLs, images, forms, and editing habits that deserve a place in the plan.
+
+A redesign can make the visible changes feel like the whole project. New typography and cleaner pages are easy to review. A broken download link, a missing form notification, or a difficult publishing workflow may surface only after launch.
+
+Planning the migration first gives those quieter requirements a place in the conversation. It also helps establish what the new site actually needs to do before choosing how it should look.
+
+## Start with an inventory
+
+List the pages and posts that still matter. Record the current URLs, note where images live, and identify any plugin behavior that visitors actually use.
+
+1. Review the content and remove outdated material from the migration scope.
+2. Map the pages that need to keep their existing URLs.
+3. Identify forms, search, and other features that need replacements.
+4. Agree on how new content will be written and reviewed.
+
+The inventory does not have to begin as a complicated system. A shared document or spreadsheet can record each URL, its purpose, the person responsible for it, and the intended outcome: keep, revise, merge, or retire.
+
+Separate content decisions from migration problems. A page that needs rewriting is an editorial task. A page that relies on a shortcode is a conversion task. Naming the difference helps assign the work and makes the remaining effort easier to understand.
+
+## Look past the plugin list
+
+A list of installed plugins is useful context, but it is not a complete feature specification. Some plugins may be inactive or support an old workflow. Others may provide a small feature that has become essential.
+
+Describe the behavior people depend on. Instead of recording only the name of a form plugin, note which forms exist, where submissions go, whether files can be uploaded, and what visitors see after submitting.
+
+The same approach works for search, redirects, image galleries, and related-post sections. Once the behavior is clear, it becomes easier to decide whether it belongs in the new site and how to implement it.
+
+## Choose the editing experience deliberately
+
+Markdown and Markdoc can be a good fit for a text-focused site. A CMS may be more comfortable for a team that needs a visual editor or a formal review process. The decision should follow the people doing the work.
+
+Ask the future editors to walk through an ordinary update. How do they add an image? Who reviews a new post? Do they need to schedule publication? Can they preview a change before it becomes public?
+
+Try those tasks with a representative piece of content before committing to the workflow. A short announcement and a long article with images may expose different needs. The goal is to make the routine work clear, rather than choosing a format solely because it is convenient for development.
+
+## Map the content before converting it
+
+WordPress content can contain headings, embedded media, block markup, shortcodes, and layout-specific wrappers. A useful conversion preserves the meaning of those pieces rather than carrying every implementation detail into the new site.
+
+For example, a callout assembled from several styled blocks might become a single structured note. A downloadable guide should retain its file destination and an understandable link label. An image needs its context and alternative text, not just a copied source URL.
+
+Choose a small set of representative pages for the first conversion pass:
+
+- A straightforward article with headings and lists.
+- A longer post with images, captions, and links.
+- A page built with a more complex layout.
+- A page containing a form, embed, or other interactive feature.
+
+Review the rendered results before converting everything. Finding a missing pattern early is much easier than correcting it across an entire archive.
+
+## Make a URL plan
+
+For each existing page, decide what should happen when someone follows its old address. Keep the address where practical. When content moves, map the old URL to the most relevant new destination and verify the redirect in the deployed environment.
+
+Avoid treating the homepage as the default destination for every retired page. Someone arriving at an old tutorial link expects a relevant article or a clear explanation, rather than a new starting point with no context.
+
+Internal links need attention too. A redirect may help an external visitor reach moved content, but links inside the new site should generally point directly to the intended destination.
+
+## Check the details before launch
+
+A new design is only one part of the handover. Check redirects, page titles, descriptions, image references, internal links, and form delivery using the built website.
+
+Include checks that follow complete visitor tasks. Submit each form and confirm that the message arrives where expected. Follow a download link. Open a long article on a phone. Visit a missing URL and review the error page.
+
+Compare a few migrated pages with their originals. Look for dropped headings, missing captions, malformed lists, and content that disappeared inside an unsupported block. Automated checks help, but a side-by-side reading can reveal problems that a successful build will not catch.
+
+> Treat the migration as a content and workflow project as well as a development project.
+
+## Plan the handover
+
+Decide how to handle edits made while the new site is being built. Without an agreed content freeze or a final update pass, the migrated copy can fall behind the live WordPress site.
+
+Before switching traffic, keep a recoverable copy of the existing site and document the deployment steps. Agree on who will check the launch, who can address problems, and what would justify reverting the change.
+
+The launch checklist should be short enough to use and specific enough to verify. “Check the forms” is less useful than identifying the forms and the expected destination for each submission.
+
+## Leave a clear path forward
+
+Document where the content lives, how to add a post, and how to preview a change. A simpler site should also feel simpler to maintain.
+
+Give the next editor an example they can follow. Explain which fields are required, how images are handled, and how a change reaches the live site. Include the small operational tasks that are easy to overlook, such as updating a redirect when a page moves again.
+
+A successful migration leaves more than a new set of pages. It leaves an understandable system, a reliable publishing path, and fewer surprises for the people who use and maintain it.

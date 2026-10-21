@@ -904,6 +904,11 @@
   text-wrap: pretty;
 }
 
+.color-brand,
+.headings-brand :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--brand-500);
+}
+
 .color-inherit {
   color: inherit;
 }

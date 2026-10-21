@@ -3,14 +3,18 @@ import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { SITE_URL } from "./src/consts.ts";
 import { isNoindexRoute } from "./src/utils/seo.ts";
+import { mdxPreviewRuntime } from "./build/mdx-preview-runtime.mjs";
+import markdoc from "@astrojs/markdoc";
 
 export default defineConfig({
   site: SITE_URL,
   integrations: [
+    markdoc(),
     sitemap({
       filter: (page) => !isNoindexRoute(new URL(page).pathname),
     }),
   ],
+
   fonts: [
     {
       name: "Inter",
@@ -27,5 +31,8 @@ export default defineConfig({
       },
     },
   ],
-  vite: { build: { cssTarget: "safari15.4" } },
+  vite: {
+    plugins: [mdxPreviewRuntime()],
+    build: { cssTarget: "safari15.4" },
+  },
 });

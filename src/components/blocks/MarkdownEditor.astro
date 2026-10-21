@@ -1,0 +1,221 @@
+---
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Textarea from "@/components/form/Textarea.astro";
+import RichText from "@/components/typography/RichText.astro";
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+}
+
+const { render = true } = Astro.props;
+const sample = `---
+title: Simple Content Management
+description: Markdown for the writing, components for the interactive parts. Supports JSX, JavaScript expressions, and locally bundled React imports. 
+author: Sean Merriam
+tags:
+  - MDX
+  - Astro
+draft: false
+---
+
+import { useState } from 'react'
+
+export function Counter() {
+  const [count, setCount] = useState(0)
+  return <button className="button_wrap" onClick={() => setCount(count + 1)}>Clicked {count} times</button>
+}
+
+## {frontmatter.title}
+
+*By {frontmatter.author} · {frontmatter.tags.join(' / ')}*
+
+#### Markdown -> Rich Content
+
+{frontmatter.description}
+
+
+##### Markdown Benefits:
+
+- Ditch the database, you don't need one.
+- Simple markdown files produce rich rendered content.
+- Zero code solution for non-developer roles
+- Embed any Javascript into your content.
+#### Normal Text Example:
+> Hello, I am normal text
+
+#### Imported Component Example:
+
+><Counter />
+`;
+---
+
+{
+  render && (
+    <div class="markdown-editor_wrap" data-markdown-editor>
+      <ContentWrapper variant="columns">
+        <div class="markdown-editor_input">
+          <Eyebrow variant="tag">MDX</Eyebrow>
+          <Textarea
+            label="MDX"
+            hideLabel
+            name="mdx"
+            value={sample}
+            placeholder={sample}
+            minLines={30}
+            maxLines={30}
+            hideScrollbar
+            spellcheck={false}
+            data-markdown-input
+            class="padding-top-4"
+          />
+        </div>
+        <div slot="column2" class="markdown-editor_preview">
+          <Eyebrow variant="tag">Live Preview</Eyebrow>
+          <RichText
+            data-markdown-preview
+            role="region"
+            aria-label="Rendered MDX"
+          >
+            <iframe
+              class="markdown-editor_frame"
+              title="MDX live preview"
+              sandbox="allow-scripts"
+              referrerpolicy="no-referrer"
+              data-mdx-frame
+            />
+          </RichText>
+          <p
+            class="markdown-editor_error"
+            role="status"
+            data-mdx-error
+            hidden
+          />
+        </div>
+      </ContentWrapper>
+    </div>
+  )
+}
+
+<script>
+  import { compilePreview, previewDocument } from "@/utils/mdx-preview";
+  import previewFont from "@/assets/fonts/inter-regular.woff2?inline";
+
+  document
+    .querySelectorAll<HTMLElement>("[data-markdown-editor]")
+    .forEach((editor) => {
+      const input = editor.querySelector<HTMLTextAreaElement>(
+        "[data-markdown-input]",
+      );
+      const frame = editor.querySelector<HTMLIFrameElement>("[data-mdx-frame]");
+      const error = editor.querySelector<HTMLElement>("[data-mdx-error]");
+      if (!input || !frame || !error) return;
+
+      const computed = getComputedStyle(editor);
+      const variables = Array.from(computed)
+        .filter((name) => name.startsWith("--"))
+        .map(
+          (name) =>
+            `${name}:${name.endsWith("-family") ? "mdx-preview, system-ui, sans-serif" : computed.getPropertyValue(name)};`,
+        )
+        .join("");
+      const styles = Array.from(
+        document.querySelectorAll<HTMLStyleElement | HTMLLinkElement>(
+          'style, link[rel="stylesheet"]',
+        ),
+      )
+        .map((element) =>
+          element instanceof HTMLLinkElement
+            ? `<link rel="stylesheet" href="${element.href}">`
+            : element.outerHTML,
+        )
+        .join("");
+      let ready = false;
+      let code = "";
+      let revision = 0;
+      let timer: ReturnType<typeof setTimeout>;
+
+      const showError = (message: string) => {
+        error.textContent = message;
+        error.hidden = !message;
+      };
+      const update = async () => {
+        const current = ++revision;
+        try {
+          const compiled = await compilePreview(input.value);
+          if (current !== revision) return;
+          code = compiled;
+          showError("");
+          if (ready)
+            frame.contentWindow?.postMessage({ type: "render-mdx", code }, "*");
+        } catch (cause) {
+          if (current === revision)
+            showError(cause instanceof Error ? cause.message : String(cause));
+        }
+      };
+
+      window.addEventListener("message", (event) => {
+        if (
+          event.source !== frame.contentWindow ||
+          event.data?.type !== "mdx-preview"
+        )
+          return;
+        if (event.data.ready) {
+          ready = true;
+          if (code)
+            frame.contentWindow?.postMessage({ type: "render-mdx", code }, "*");
+        }
+        if (typeof event.data.error === "string") showError(event.data.error);
+        if (
+          typeof event.data.height === "number" &&
+          Number.isFinite(event.data.height)
+        ) {
+          frame.style.height = `${Math.min(20000, Math.max(200, event.data.height))}px`;
+        }
+      });
+
+      frame.srcdoc = previewDocument(
+        `${styles}<style>@font-face{font-family:mdx-preview;src:url("${previewFont}") format("woff2");font-weight:400}:root{${variables}--font-inter:mdx-preview;}</style>`,
+      );
+      input.addEventListener("input", () => {
+        clearTimeout(timer);
+        timer = setTimeout(update, 250);
+      });
+      update();
+    });
+</script>
+
+<style is:global>
+  @layer components {
+    .markdown-editor_wrap {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .markdown-editor_input,
+    .markdown-editor_preview {
+      width: 100%;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .markdown-editor_preview {
+      overflow-x: auto;
+    }
+
+    .markdown-editor_frame {
+      display: block;
+      width: 100%;
+      min-height: 20rem;
+      border: 0;
+    }
+
+    .markdown-editor_error {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      padding: var(--space-3);
+      border: var(--border-width) solid currentColor;
+      border-radius: var(--radius-small);
+    }
+  }
+</style>
