@@ -7,6 +7,9 @@ import { mdxPreviewRuntime } from "./build/mdx-preview-runtime.mjs";
 import markdoc from "@astrojs/markdoc";
 
 export default defineConfig({
+  server: { 
+    allowedHosts: "coder.recover.works"
+  },
   site: SITE_URL,
   integrations: [
     markdoc(),
