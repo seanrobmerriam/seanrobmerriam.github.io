@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/blocks/Hero.astro";
-import Projects from "@/components/blocks/Projects.astro";
 import Section from "@/components/wrapper/Section.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 import Grid from "@/components/wrapper/Grid.astro";
@@ -10,8 +9,6 @@ import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
 import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Button from "@/components/Button.astro";
-import MarkdownEditor from "@/components/blocks/MarkdownEditor.astro";
-import { projects } from "@/data/projects";
 import { services, specialties } from "@/data/portfolio";
 import { getCollection } from "astro:content";
 import Card from "@/components/item/Card.astro";
@@ -106,25 +103,10 @@ const focus = [
     </ContentWrapper>
   </Section>
 
-  <!-- Markdown playground -->
-  <Section id="markdown" theme="dark" aria-labelledby="markdown-heading">
-    <ContentWrapper>
-      <Eyebrow>Markdown Based Content</Eyebrow>
-      <Heading id="markdown-heading" tag="h2" class="heading-accent"
-        >From <strong>plain </strong>text to a <strong>post.</strong></Heading
-      >
-      <Paragraph variant="large" maxWidth={44} class="padding-bottom-4">
-        Try a heading, a list, or a little emphasis. The preview updates as you
-        type.
-      </Paragraph>
-    </ContentWrapper>
-    <MarkdownEditor />
-  </Section>
-
   <!-- Markdoc journal -->
   <Section
     id="journal"
-    theme="light"
+    theme="dark"
     aria-labelledby="journal-heading"
     render={posts.length > 0}
   >
@@ -210,15 +192,43 @@ const focus = [
     </ContentWrapper>
   </Section>
 
-  <!-- Selected work -->
-  <Projects
+  <!-- brutalcss.com -->
+  <Section
     id="work"
-    heading="Built with curiosity."
-    text="A selection of open-source tools and experiments. Explore the ideas, read the code, or make something of your own."
-    projects={projects}
     theme="light"
-    aria-label="Selected projects"
-  />
+    aria-labelledby="work-heading"
+  >
+    <ContentWrapper variant="sticky-content">
+      <div>
+        <Eyebrow>Open source</Eyebrow>
+        <Heading id="work-heading" tag="h2" maxWidth={18}>
+          Built with brutalcss.
+        </Heading>
+        <Paragraph variant="large" maxWidth={40}>
+          A lightweight, dependency-free CSS framework for building raw,
+          high-contrast interfaces with unapologetic borders, shadows, and
+          type.
+        </Paragraph>
+        <ButtonWrapper>
+          <Button element="link" href="https://brutalcss.com"
+            >Visit brutalcss.com</Button
+          >
+        </ButtonWrapper>
+      </div>
+      <div slot="column2">
+        <Heading tag="h3" variant="h5">No build step required.</Heading>
+        <Paragraph>
+          Drop in a single stylesheet and get a complete set of brutalist
+          components, from buttons to cards, ready to use out of the box.
+        </Paragraph>
+        <Heading tag="h3" variant="h5">Unapologetically bold.</Heading>
+        <Paragraph>
+          Thick borders, hard shadows, and honest typography replace the soft
+          gradients and rounded corners of most design systems.
+        </Paragraph>
+      </div>
+    </ContentWrapper>
+  </Section>
 
   <!-- Services -->
   <Section id="services" aria-labelledby="services-heading">
