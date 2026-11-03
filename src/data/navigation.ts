@@ -5,11 +5,10 @@ import type { Link, NavigationItem } from '../types';
  * Items with `matchPath` get aria-current when the visitor is on that page.
  */
 export const mainNav: NavigationItem[] = [
-  { label: 'Solutions', href: '/#services' },
-  { label: 'Features', href: '/#platform' },
-  { label: 'Pricing', href: '/#pricing' },
-  { label: 'Customers', href: '/#work' },
-  { label: 'Insights', href: '/blog', matchPath: '/blog' },
+  { label: 'Capabilities', href: '/#services' },
+  { label: 'Principles', href: '/#platform' },
+  { label: 'Process', href: '/#process' },
+  { label: 'Work', href: '/#work' },
 ];
 
 /** Mobile menu adds a direct Contact link below the main items. */
@@ -22,33 +21,22 @@ export interface FooterColumn {
 
 export const footerColumns: FooterColumn[] = [
   {
-    title: 'Solutions',
+    title: 'Capabilities',
     links: [
-      { label: 'Customer support', href: '/#services' },
-      { label: 'Back office', href: '/#services' },
-      { label: 'Documents & claims', href: '/#services' },
-      { label: 'Revenue research', href: '/#services' },
-      { label: 'Evaluation', href: '/#services' },
+      { label: 'LLM-enabled workflows', href: '/#services' },
+      { label: 'Agent-driven testing', href: '/#services' },
+      { label: 'Architecture reviews', href: '/#services' },
+      { label: 'Reliability & TDD', href: '/#services' },
+      { label: 'Technical strategy', href: '/#services' },
     ],
   },
   {
-    title: 'Company',
+    title: 'Site',
     links: [
-      { label: 'About', href: '/#team' },
-      { label: 'Customers', href: '/#work' },
-      { label: 'How we work', href: '/#process' },
-      { label: 'Insights', href: '/blog' },
+      { label: 'Principles', href: '/#platform' },
+      { label: 'Process', href: '/#process' },
+      { label: 'Work', href: '/#work' },
       { label: 'FAQ', href: '/#faq' },
-    ],
-  },
-  {
-    title: 'Sectors',
-    links: [
-      { label: 'Banking & fintech', href: '/#sectors' },
-      { label: 'Healthcare', href: '/#sectors' },
-      { label: 'Logistics', href: '/#sectors' },
-      { label: 'Insurance', href: '/#sectors' },
-      { label: 'Commerce', href: '/#sectors' },
     ],
   },
 ];
@@ -60,6 +48,5 @@ export const footerColumns: FooterColumn[] = [
  *   { label: 'Terms', href: '/terms' },
  */
 export const legalLinks: Link[] = [
-  { label: 'RSS', href: '/rss.xml' },
   { label: 'Sitemap', href: '/sitemap-index.xml' },
 ];

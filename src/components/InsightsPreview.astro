@@ -21,7 +21,7 @@ const posts = (await getPosts()).slice(0, limit);
         {posts.map((post, i) => <PostCard post={post} delay={i * 80} />)}
       </div>
       <div class="insights__more rv">
-        <Button href="/blog" variant="oink">All insights</Button>
+        <Button href="/blog" variant="oink">All writing</Button>
       </div>
     </div>
   </section>

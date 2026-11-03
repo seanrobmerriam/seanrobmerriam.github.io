@@ -12,7 +12,9 @@ const { customer, delay = 0 } = Astro.props;
 
 <article class="wcard rv" style={delay ? `--d:${delay}ms` : undefined}>
   <div class="wcard__i">
-    <img src={url(customer.image)} alt={customer.imageAlt} width="900" height="620" loading="lazy" decoding="async" />
+    {customer.image
+      ? <img src={url(customer.image)} alt={customer.imageAlt ?? ''} width="900" height="620" loading="lazy" decoding="async" />
+      : <span class="wcard__ph" aria-hidden="true">{customer.company}</span>}
     <span class="wcard__pill">{customer.sector}</span>
   </div>
   <div class="wcard__b">

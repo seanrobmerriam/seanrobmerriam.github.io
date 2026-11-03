@@ -1,9 +1,9 @@
 import type { Feature } from '../types';
 
-/** Checklist in the "How it holds up" platform section. */
+/** Checklist in the "Positioning" section — the principles behind the work. */
 export const features: Feature[] = [
-  { title: 'Runs in your cloud', description: 'Deployed into your account, or fully on premise for regulated work.' },
-  { title: 'Spend capped per run', description: 'A hard budget per task. Past it, the work goes to a human queue instead.' },
-  { title: 'Model-agnostic routing', description: 'Whichever model wins on your test set, re-checked every quarter.' },
-  { title: '400-day replay', description: 'Reconstruct any decision step by step, long after the invoice cleared.' },
+  { title: 'Ambiguity is the real cost.', description: 'Generated code is cheap. Deciding what the system must do — and refusing to let it mean two things — is not.' },
+  { title: 'The test is the contract.', description: 'If behaviour isn’t asserted, it isn’t specified. Tests are where intent stops being a suggestion.' },
+  { title: 'Boring where it counts.', description: 'Novelty belongs in the product. Infrastructure should stay legible at 3am to someone who didn’t write it.' },
+  { title: 'Agents need boundaries, not vibes.', description: 'Give a model a tool it can use and a failure it can’t recover from, and reliability arrives by accident. Design for the second one.' },
 ];

@@ -98,8 +98,9 @@ export interface Customer {
   title: string;
   sector: string;
   description: string;
-  image: string;
-  imageAlt: string;
+  /** Omit to show a typographic panel with the company name instead. */
+  image?: string;
+  imageAlt?: string;
   metrics: Metric[];
   featured?: boolean;
   url?: string;

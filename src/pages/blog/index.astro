@@ -13,9 +13,9 @@ const featured = posts.find((p) => p.data.featured) ?? posts[0];
 const rest = posts.filter((p) => p !== featured);
 const categories = [...new Set(rest.map((p) => p.data.category))].sort();
 
-const title = 'Insights';
+const title = 'Writing';
 const description =
-  'Field notes on building, evaluating and operating AI agents in production — from the ST AI Agency run log.';
+  'Notes on production discipline — reliability, testing and building software with LLMs that survives production.';
 
 const schema = [
   {
@@ -33,7 +33,7 @@ const schema = [
   <PageHero
     kicker={sections.insights.kicker}
     title={sections.insights.title}
-    lead="Field notes on building, evaluating and supervising AI agents — written by the engineers who carry the pager."
+    lead="Notes on production discipline: reliability, testing, and building with LLMs without lowering the bar."
     breadcrumbs={[{ label: 'Home', href: '/' }, { label: title, href: '/blog' }]}
   />
 

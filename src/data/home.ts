@@ -2,123 +2,130 @@ import type { HeroStat, SectionHeading } from '../types';
 
 /** Copy for the homepage hero. Line breaks in the headline are intentional. */
 export const hero = {
-  eyebrow: '14 agents live in production',
+  eyebrow: 'Available for Q1 2027 engagements',
   /** Each entry is one line of the headline; `tint` lines use the light-peach accent. */
   headline: [
-    { text: 'AI agents', tint: false },
-    { text: 'that run', tint: false },
-    { text: 'the work,', tint: true },
-    { text: 'not the demo.', tint: true },
+    { text: 'I design systems', tint: false },
+    { text: 'that survive', tint: false },
+    { text: 'production —', tint: false },
+     { text: ' and product teams.', tint: true },
   ],
-  lead: 'We build and run the agents that handle your support queue, your invoice runs and your claims desk — and hand back to a human the moment they should.',
-  primaryCta: { label: 'Book a demo', href: '/#contact' },
-  secondaryCta: { label: 'See our work', href: '/#work' },
-  image: '/images/ai-agency-hero.webp',
+  lead: 'Senior software engineer and designer working at the intersection of reliability and LLM-enabled development. I turn ambiguous problems into working software — then write about the discipline it takes to keep it working.',
+  primaryCta: { label: 'Start a conversation', href: '/#contact' },
+  secondaryCta: { label: 'See selected work', href: '/#work' },
+  image: '/images/ai-agency-hero.jpg',
   credentials: [
-    { icon: 'clock', label: 'Always on' },
-    { icon: 'shield-check', label: 'Fully audited' },
-    { icon: 'bars', label: 'Measured against your baseline' },
+    { icon: 'clock', label: 'Santa Cruz, CA' },
+    { icon: 'shield-check', label: 'Software Engineering · Design' },
+    { icon: 'bars', label: 'LLM integration · Agent infrastructure' },
   ] as const,
 };
 
-/** The four figures pinned to the bottom of the hero. Demo numbers — replace with your own. */
+/** The four figures pinned to the bottom of the hero. */
 export const heroStats: HeroStat[] = [
-  { value: '92%', label: 'Tier-1 tickets closed without a human' },
-  { value: '6 weeks', label: 'From first workshop to live traffic' },
-  { value: '4,200 hrs', label: 'Queue work moved off desks each month' },
-  { value: '24/7', label: 'Shared on-call with your operations lead' },
+  { value: '12+', label: 'Years writing and shipping production software' },
+  { value: '40+', label: 'Projects delivered, from first brief to running system' },
+  { value: '6', label: 'Systems still in production after handover' },
+  { value: '1', label: 'Book published — Production Ready Go' },
 ];
 
 export const clients = {
-  label: 'Operating inside',
-  /** Fictional company names used as a word-mark strip. */
-  names: ['Northwind', 'Kestrel Health', 'Meridian', 'Halcyon', 'Orbit Retail', 'Palisade'],
+  label: 'Working with',
+  /** Word-mark strip of the languages I build with. */
+  names: ['Rust', 'Go', 'Erlang', 'TypeScript', 'Zig', 'C'],
 };
 
 export const sections: Record<
-  'solutions' | 'platform' | 'process' | 'work' | 'sectors' | 'testimonial' | 'team' | 'pricing' | 'insights' | 'faq' | 'contact',
+  'solutions' | 'platform' | 'process' | 'work' | 'samples' | 'sectors' | 'testimonial' | 'team' | 'pricing' | 'insights' | 'faq' | 'contact',
   SectionHeading
 > = {
   solutions: {
-    kicker: 'What we build',
-    title: 'Five agents. One operating standard.',
-    lead: 'Each one ships with its own evaluation set, spend cap and escalation rule. You get the agent, the harness around it, and the screen your team runs it from.',
+    kicker: 'Capabilities',
+    title: 'Where I can help a team move faster without lowering the bar.',
+    lead: 'I work with teams that want LLMs in order to make their teams work faster and to make them more certain about what they’re shipping.',
   },
   platform: {
-    kicker: 'How it holds up',
-    title: 'Built to be handed<br>over, not rented.',
-    lead: 'You own the code, the prompts, the test set and the infrastructure definitions from day one. We are the team that runs it until your team wants to.',
+    kicker: 'Positioning',
+    title: 'Most software is<br>written twice.',
+    lead: 'Once to prove it works, and again to survive production. The interesting work is rarely the code itself — it’s deciding what the system must do before anyone can write a line of it, and then building the feedback loops that keep it honest once the real world pushes back.',
   },
   process: {
-    kicker: 'How we work',
-    title: 'Six weeks from<br>workshop to live.',
-    lead: 'The order matters. We will not build before we have watched the work done by hand, and we will not launch before the test set passes.',
+    kicker: 'How I work',
+    title: 'Ambiguity out.<br>Reliability in.',
+    lead: 'Better decisions, tighter feedback loops, and more reliable delivery — in that order.',
   },
   work: {
     kicker: 'Selected work',
-    title: 'Twelve months<br>of receipts.',
-    lead: 'Every number below is measured against the manual baseline we recorded in week one — not against a vendor benchmark.',
+    title: 'Infrastructure for<br>teams that build with AI.',
+    lead: 'Queues, context and fault injection for autonomous agents — plus the book on what it takes to keep software running.',
+  },
+  samples: {
+    kicker: 'Sample interfaces',
+    title: 'Fourteen sites,<br>fourteen brands.',
+    lead: 'Working product interfaces and marketing pages — dashboards, data tables, editors, docs and landing pages — each with its own palette and interactions.',
   },
   sectors: {
-    kicker: 'Where we work',
-    title: 'Sectors with rules worth respecting',
-    lead: 'We take work in regulated and operationally heavy industries, because that is exactly where supervision earns its keep.',
+    kicker: 'Where I work',
+    title: 'Teams that build with AI',
+    lead: 'Teams that want LLMs to make them faster and more certain about what they ship.',
   },
-  testimonial: { kicker: 'Client voice', title: '' },
+  testimonial: { kicker: 'Kind words', title: '' },
   team: {
-    kicker: 'The team',
-    title: 'Small on purpose',
-    lead: 'Nine people. The person who scopes your engagement is the person who writes the test set and answers the pager.',
+    kicker: 'About',
+    title: 'Engineer by training. Designer by instinct.',
+    lead: 'Senior software engineer and designer in Santa Cruz, California.',
   },
   pricing: {
     kicker: 'Engagements',
-    title: 'Priced by the agent, not by the seat',
-    lead: 'A fixed monthly fee covering build, supervision and on-call. Model and infrastructure costs pass through at cost, itemised on every invoice.',
+    title: 'Ways to work together',
+    lead: 'A small number of engagements at a time, scoped to what is actually stuck.',
   },
   insights: {
-    kicker: 'Insights',
-    title: 'Notes from the run log',
-    lead: 'What we learned shipping agents into places where a wrong answer costs real money.',
+    kicker: 'Writing',
+    title: 'Notes on production discipline',
+    lead: 'On reliability, testing and building software with LLMs that is still running in two years.',
   },
   faq: {
     kicker: 'Questions',
     title: 'Before you<br>get in touch',
-    lead: 'If yours is not here, ask it in the form below. We answer in writing before any call.',
+    lead: 'If yours is not here, ask it in the form below.',
   },
   contact: {
-    kicker: 'Get in touch',
-    title: 'Bring us one<br>annoying workflow',
-    lead: 'Tell us the task your team dreads on a Monday. Within a week we will tell you whether an agent can hold it, what it would cost, and where it would break.',
+    kicker: 'Contact',
+    title: 'Have a problem that<br>needs to ship?',
+    lead: 'I take on a small number of engagements at a time — LLM-enabled engineering, agent infrastructure, architecture review, and the plan for how to get there. Tell me what’s actually stuck.',
   },
 };
 
 export const platformImage = {
   src: '/images/platform-operations-lead.webp',
-  alt: 'An operations lead working at a desktop computer',
-  tag: 'Handover in 4 weeks',
+  alt: 'A person working at a desktop computer',
+  tag: 'Reliability · LLM-enabled development',
 };
 
 /** Orange call-to-action band above the footer. */
 export const finalCta = {
-  kicker: 'Two pilot slots open this quarter',
-  title: 'Stop evaluating AI. Start operating it.',
-  lead: 'Ninety minutes with your operations lead and one of our engineers. You leave with a scoped workflow, an honest feasibility call and a number.',
+  kicker: 'Available for Q1 2027 engagements',
+  title: 'The real opportunity with LLMs isn’t speed.',
+  lead: 'It’s better decisions, tighter feedback loops, and more reliable delivery.',
 };
 
 export const contactForm = {
   workflows: [
-    'Customer support queue',
-    'Back office and reconciliation',
-    'Claims or document processing',
-    'Revenue research and enrichment',
+    'LLM-enabled engineering workflows',
+    'Agent-driven testing & internal tooling',
+    'Architecture & design review',
+    'Reliability & TDD for AI-assisted teams',
+    'Custom application development',
+    'Development planning & technical strategy',
     'Something else entirely',
   ],
-  submitLabel: 'Send enquiry',
-  note: 'No sales sequence. One reply, written by an engineer.',
+  submitLabel: 'Send message',
+  note: 'Typical reply within two business days.',
 };
 
 export const newsletter = {
-  title: 'The run log, monthly',
-  description: 'One email a month: what shipped, what broke, and the numbers behind it. No launch announcements.',
+  title: 'Occasional notes',
+  description: 'Now and then: what I am building, what broke, and the production discipline that fixed it.',
   submitLabel: 'Subscribe',
 };

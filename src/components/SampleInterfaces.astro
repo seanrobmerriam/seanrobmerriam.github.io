@@ -1,0 +1,15 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import CustomerCard from './CustomerCard.astro';
+import { sampleInterfaces } from '../data/customers';
+import { sections } from '../data/home';
+---
+
+<section class="sec sec--sm on-ink" id="samples" aria-labelledby="samples-title">
+  <div class="wrap">
+    <SectionHeading heading={sections.samples} tone="o4" id="samples-title" />
+    <div class="work">
+      {sampleInterfaces.map((sample, i) => <CustomerCard customer={sample} delay={(i % 3) * 80} />)}
+    </div>
+  </div>
+</section>

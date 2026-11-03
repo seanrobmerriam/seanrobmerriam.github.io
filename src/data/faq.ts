@@ -2,33 +2,33 @@ import type { FAQItem } from '../types';
 
 export const faqs: FAQItem[] = [
   {
-    question: 'Do we need our own AI team first?',
+    question: 'What kind of work do you take on?',
     answer:
-      'No. Most clients start with an operations lead and one engineer who can grant access. We supply the agent engineering; you supply the domain judgement about what a correct answer looks like. By month three your ops lead is usually shipping changes without us.',
+      'A small number of engagements at a time — LLM-enabled engineering, agent infrastructure, architecture review, and the plan for how to get there. The common thread is software that has to survive production, not just a demo.',
   },
   {
-    question: 'Where does our data go?',
+    question: 'Who do you usually work with?',
     answer:
-      'Into your infrastructure by default. On Scale we deploy into your cloud account; on Embedded we run fully on premise. Nothing trains a model, retention windows are set by you, and every third-party call is listed in the data map we hand over in week one.',
+      'Teams that want LLMs to make them faster and to make them more certain about what they’re shipping. The real opportunity isn’t speed; it’s better decisions, tighter feedback loops, and more reliable delivery.',
   },
   {
-    question: 'What happens when the agent gets it wrong?',
+    question: 'What is your stack?',
     answer:
-      'It should stop rather than guess — that is what the confidence thresholds and refusal rules are for. When something still slips through, you replay the run step by step, see which tool call caused it, add the case to the test set, and the regression suite blocks it from happening twice.',
+      'Go and Rust for services, TypeScript for the interfaces people actually touch, and C where it counts. Postgres and SQLite for data, gRPC, HTTP and MCP at the boundaries.',
   },
   {
-    question: 'Which models do you use?',
+    question: 'Where are you based?',
     answer:
-      'Whichever wins on your evaluation set, re-tested quarterly. We are deliberately not tied to one provider — routing is a configuration file, not a rewrite. If compliance restricts you to a specific list, we fix routing to that list and show you the quality cost.',
+      'Santa Cruz, California, and remote-friendly. I currently work as a software engineer at Kinetic Fintech.',
   },
   {
-    question: 'How long until we see something real?',
+    question: 'What is your background?',
     answer:
-      'An agent running against real data in a sandbox by the end of week three. Production traffic usually lands in week six, gated behind the security review and a passing evaluation run. If we are going to miss that, you hear it in week two, not week five.',
+      'I started in political science at UC Davis and found I liked systems far more than policy; the rest of the path was learning to make them legible. These days I split my time between writing Go and Rust services, designing interfaces, and helping teams adopt AI without lowering the bar.',
   },
   {
-    question: 'Can we take it in-house later?',
+    question: 'What is Production Ready Go?',
     answer:
-      'Yes, and it is written into the contract. You own the code, prompts, evaluation set and infrastructure definitions from day one. Handover is a four-week programme with shadowing, runbook review and a final on-call swap. No exit fee.',
+      'My book — Patterns and Practices for Shipping Reliable Software. It covers test-first development, explicit error handling, security-first design, strong API boundaries, operational readiness and long-term maintainability. You can read it on GitHub.',
   },
 ];

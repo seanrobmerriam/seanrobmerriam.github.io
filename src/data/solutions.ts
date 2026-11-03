@@ -3,47 +3,56 @@ import type { Solution } from '../types';
 export const solutions: Solution[] = [
   {
     number: '01',
-    title: 'Customer support',
+    title: 'LLM-enabled engineering workflows',
     description:
-      'Tier-1 resolution across email, chat and voice, grounded in your real help centre. Refuses anything outside scope and writes a clean handoff packet when a person is needed.',
-    image: '/images/solution-support.webp',
+      'Practical workflows where models improve speed, clarity, and output quality without compromising the standards production demands.',
     href: '/#contact',
-    category: 'Support',
+    category: 'Workflows',
+    features: ['Agent harnesses', 'Prompt design', 'MCP', 'Review automation'],
   },
   {
     number: '02',
-    title: 'Back office & finance',
+    title: 'Agent-driven testing & internal tooling',
     description:
-      "Invoice reconciliation, onboarding checks, refunds and renewals. The repeat work that quietly eats a third of your team's week, done overnight with an audit trail.",
-    image: '/images/solution-finance.webp',
+      'Agent-backed test generation and review, plus the unglamorous internal tooling that keeps a team shipping instead of waiting.',
     href: '/#contact',
-    category: 'Operations',
+    category: 'Tooling',
+    features: ['Test harnesses', 'CI', 'Fixture design', 'MCP servers'],
   },
   {
     number: '03',
-    title: 'Documents & claims',
+    title: 'Architecture & design reviews',
     description:
-      'Extract, verify against policy, file. Built for the messy PDF, the scanned fax and the supplier who redesigns their invoice every quarter.',
-    image: '/images/solution-documents.webp',
+      'A second opinion on the hard boundaries: service decomposition, data contracts, and the failure modes nobody priced in at the start.',
     href: '/#contact',
-    category: 'Documents',
+    category: 'Architecture',
+    features: ['System design', 'API boundaries', 'ADRs', 'Capacity'],
   },
   {
     number: '04',
-    title: 'Revenue research',
+    title: 'Reliability & TDD for AI-assisted teams',
     description:
-      "Enrich inbound leads, read the account's public footprint, and hand the rep a two-paragraph brief before the call — sourced, dated and linked.",
-    image: '/images/solution-research.webp',
+      'Keeping the standards high when code is cheap — explicit error handling, real test coverage, security-first design, no silent shortcuts.',
     href: '/#contact',
-    category: 'Sales',
+    category: 'Reliability',
+    features: ['TDD', 'Observability', 'Security review', 'Go · Rust'],
   },
   {
     number: '05',
-    title: 'Evaluation & supervision',
+    title: 'Custom application development',
     description:
-      'The part most agencies skip. Labelled test sets, regression runs on every prompt change, and an alert the day quality starts to slip.',
-    image: '/images/solution-evaluation.webp',
+      'End-to-end builds from an ambiguous brief to deployed, documented, maintainable software — with the decisions written down as they happen.',
     href: '/#contact',
-    category: 'Quality',
+    category: 'Build',
+    features: ['TypeScript', 'Go', 'Rust', 'Postgres'],
+  },
+  {
+    number: '06',
+    title: 'Development planning & technical strategy',
+    description:
+      'Scoping, structuring, and sequencing software initiatives so that delivery risk is visible early and cheap to change.',
+    href: '/#contact',
+    category: 'Strategy',
+    features: ['Roadmaps', 'RFCs', 'Staff+ work', 'Estimation'],
   },
 ];

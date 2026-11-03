@@ -3,23 +3,23 @@ import type { ProcessStep } from '../types';
 export const processSteps: ProcessStep[] = [
   {
     number: '1',
-    title: 'Watch the work',
+    title: 'Decide what it must do',
     description:
-      'Two days sitting with the team that does the task today. We record the real decision points, the exceptions nobody wrote down, and where the cost actually sits.',
-    timing: 'Week 1 — process map & baseline',
+      'Before anyone writes a line, pin down what the system must do — and refuse to let it mean two things. Scope, structure and sequence so delivery risk is visible early.',
+    timing: 'Plan — scope, RFCs & ADRs',
   },
   {
     number: '2',
-    title: 'Build one narrow slice',
+    title: 'Build test-first',
     description:
-      'A single workflow, running against real data in a sandbox. If it cannot beat the manual baseline on a labelled set, we tell you and we stop.',
-    timing: 'Week 2–4 — working agent',
+      'Model capability combined with strong architecture and disciplined testing. Explicit error handling, strong API boundaries and security-first design — no silent shortcuts.',
+    timing: 'Build — tests as the contract',
   },
   {
     number: '3',
-    title: 'Harden, then operate',
+    title: 'Keep it honest',
     description:
-      'Guardrails, permissions, spend caps, rollback and escalation rules. Then we run it with you, on call, until your ops lead can ship a change alone.',
-    timing: 'Week 5–6 — live, then shared on-call',
+      'Feedback loops that hold up once the real world pushes back: observability, operational readiness and documentation your team can carry forward after handover.',
+    timing: 'Run — production & handover',
   },
 ];
