@@ -173,6 +173,7 @@
   color: var(--color-black);
   font-family: var(--heading-family);
   text-shadow: 0.125rem 0.125rem 0.25rem rgb(0 0 0 / 0.5);
+  box-shadow: 10px 10px 2px 1px rgba(18, 18, 18, 0.2);
   text-wrap: nowrap;
   rotate: -2deg;
 }
