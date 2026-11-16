@@ -3,6 +3,7 @@ import type { ComponentProps } from "astro/types";
 import Section from "@/components/wrapper/Section.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 import Heading from "@/components/typography/Heading.astro";
+import githubWordmark from "@/assets/images/github-wordmark.svg";
 
 // TODO: replace these placeholders with real projects before merging.
 const PROJECTS = [
@@ -62,23 +63,45 @@ const {
   {...rest}
 >
   <ContentWrapper variant="stack">
-    <Heading tag="h2" class="heading-label">current projects</Heading>
+    <Heading tag="h2" class="heading-label">
+      current projects
+    </Heading>
     <ul class="projects_list">
       {PROJECTS.map((project) => (
         <li class="projects_tile">
-          <div class="projects_head">
-            <h3 class="projects_title text-style-h5">
-              {project.href ? (
-                <a href={project.href}>{project.name}</a>
-              ) : (
-                project.name
-              )}
-            </h3>
-            <span class="projects_status text-style-small">
-              {project.status}
-            </span>
+          <div class="projects_body">
+            <div class="projects_head">
+              <h3 class="projects_title text-style-h5">
+                {project.href ? (
+                  <a href={project.href}>{project.name}</a>
+                ) : (
+                  project.name
+                )}
+              </h3>
+              <span class="projects_status text-style-small">
+                {project.status}
+              </span>
+            </div>
+            <p class="projects_text">{project.text}</p>
           </div>
-          <p class="projects_text">{project.text}</p>
+          {project.href ? (
+            <a
+              class="projects_icon"
+              href={project.href}
+              aria-label={`${project.name} on GitHub`}
+            >
+              <img src={githubWordmark.src} alt="" width="74" height="20" />
+            </a>
+          ) : (
+            <span class="projects_icon">
+              <img
+                src={githubWordmark.src}
+                alt="GitHub"
+                width="74"
+                height="20"
+              />
+            </span>
+          )}
         </li>
       ))}
     </ul>
@@ -98,8 +121,8 @@ const {
     }
     .projects_tile {
       display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
+      align-items: center;
+      gap: var(--space-5);
       min-width: 0;
       padding: var(--space-5);
       background: var(--color-white);
@@ -107,6 +130,22 @@ const {
       border-radius: calc(var(--radius-main) * 1.5);
       color: var(--text);
       box-shadow: 10px 10px 2px 1px rgba(18, 18, 18, 0.2);
+    }
+    .projects_body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .projects_icon {
+      flex-shrink: 0;
+      display: inline-flex;
+      & img {
+        display: block;
+        width: 4.625rem;
+        height: auto;
+      }
     }
     .projects_head {
       display: flex;
