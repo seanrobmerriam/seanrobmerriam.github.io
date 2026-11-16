@@ -39,5 +39,14 @@ const { render = true, text, variant = "margin", class: className, ...rest } = A
     max-width: 24ch;
   }
   .handwritten-note_arrow { flex: 0 0 3.5rem; width: 3.5rem; height: auto; }
+  /* Single-column layouts stack the note under the content it points at. */
+  @media (width < 64rem) {
+    .layout.columns .handwritten-note_wrap {
+      align-self: end;
+      align-items: start;
+      max-width: min(32rem, 85%);
+      .handwritten-note_arrow { rotate: 90deg; }
+    }
+  }
 }
 </style>
