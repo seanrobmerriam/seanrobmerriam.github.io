@@ -1,0 +1,174 @@
+---
+import type { ComponentProps } from "astro/types";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import githubWordmark from "@/assets/images/github-wordmark.svg";
+
+// TODO: replace these placeholders with real projects before merging.
+const PROJECTS = [
+  {
+    name: "Project one",
+    status: "In progress",
+    text: "Placeholder: a one-line description of what this project is and who it is for.",
+    href: "",
+  },
+  {
+    name: "Project two",
+    status: "In progress",
+    text: "Placeholder: a one-line description of what this project is and who it is for.",
+    href: "",
+  },
+  {
+    name: "Project three",
+    status: "Exploring",
+    text: "Placeholder: a one-line description of what this project is and who it is for.",
+    href: "",
+  },
+  {
+    name: "Project four",
+    status: "Exploring",
+    text: "Placeholder: a one-line description of what this project is and who it is for.",
+    href: "",
+  },
+  {
+    name: "Project five",
+    status: "Maintaining",
+    text: "Placeholder: a one-line description of what this project is and who it is for.",
+    href: "",
+  },
+];
+
+type Props = Pick<
+  ComponentProps<typeof Section>,
+  "render" | "theme" | "paddingTop" | "paddingBottom"
+> &
+  Omit<astroHTML.JSX.HTMLAttributes, "color">;
+const {
+  render = true,
+  theme = "inherit",
+  paddingTop = "medium",
+  paddingBottom = "medium",
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Section
+  {render}
+  {theme}
+  {paddingTop}
+  {paddingBottom}
+  class={className}
+  {...rest}
+>
+  <ContentWrapper variant="stack">
+    <Heading tag="h2" class="heading-label">
+      current projects
+    </Heading>
+    <ul class="projects_list">
+      {PROJECTS.map((project) => (
+        <li class="projects_tile">
+          <div class="projects_body">
+            <div class="projects_head">
+              <h3 class="projects_title text-style-h5">
+                {project.href ? (
+                  <a href={project.href}>{project.name}</a>
+                ) : (
+                  project.name
+                )}
+              </h3>
+              <span class="projects_status text-style-small">
+                {project.status}
+              </span>
+            </div>
+            <p class="projects_text">{project.text}</p>
+          </div>
+          {project.href ? (
+            <a
+              class="projects_icon"
+              href={project.href}
+              aria-label={`${project.name} on GitHub`}
+            >
+              <img src={githubWordmark.src} alt="" width="74" height="20" />
+            </a>
+          ) : (
+            <span class="projects_icon">
+              <img
+                src={githubWordmark.src}
+                alt="GitHub"
+                width="74"
+                height="20"
+              />
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </ContentWrapper>
+</Section>
+
+<style is:global>
+  @layer components {
+    .projects_list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      width: 100%;
+      margin: var(--space-6) 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .projects_tile {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      min-width: 0;
+      padding: var(--space-5);
+      background: var(--color-white);
+      border: var(--border-width) solid var(--color-black);
+      border-radius: calc(var(--radius-main) * 1.5);
+      color: var(--text);
+      box-shadow: 10px 10px 2px 1px rgba(18, 18, 18, 0.2);
+    }
+    .projects_body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .projects_icon {
+      flex-shrink: 0;
+      display: inline-flex;
+      & img {
+        display: block;
+        width: 4.625rem;
+        height: auto;
+      }
+    }
+    .projects_head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+    .projects_title {
+      margin: 0;
+      & a {
+        color: inherit;
+      }
+    }
+    .projects_status {
+      padding: 0.15em 0.65em;
+      border: var(--border-width) solid var(--border);
+      border-radius: var(--radius-round);
+      color: var(--text-2);
+    }
+    .projects_text {
+      margin: 0;
+      color: var(--text-2);
+    }
+  }
+</style>
